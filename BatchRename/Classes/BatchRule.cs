@@ -9,7 +9,6 @@ namespace BatchRename
         private bool _insert;
         private bool _replace;
         private bool _remove;
-        private bool _text;
         private bool _replaceIsRegex;
         private bool _removeStartIsNumber;
         private bool _removeEndIsNumber;
@@ -26,7 +25,6 @@ namespace BatchRename
         private string _replaceTextWith;
         private string _removeStartText;
         private string _removeEndText;
-        private string _linesText;
         private string _name;
         private string _description;
         private int _insertTextAt;
@@ -86,19 +84,6 @@ namespace BatchRename
             {
                 _remove = value;
                 NotifyPropertyChanged("Remove");
-            }
-        }
-
-        public bool Text
-        {
-            get
-            {
-                return _text;
-            }
-            set
-            {
-                _text = value;
-                NotifyPropertyChanged("Text");
             }
         }
 
@@ -310,19 +295,6 @@ namespace BatchRename
             }
         }
 
-        public string LinesText
-        {
-            get
-            {
-                return _linesText;
-            }
-            set
-            {
-                _linesText = value;
-                NotifyPropertyChanged("LinesText");
-            }
-        }
-
         public string Name
         {
             get
@@ -395,7 +367,6 @@ namespace BatchRename
             Extension = false;
             Insert = false;
             Replace = false;
-            Text = false;
             Name = "Empty rule";
             Description = "This rule is empty.";
         }

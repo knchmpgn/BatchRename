@@ -5,15 +5,21 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="clr-namespace:BatchRename"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    Title="Rule"
-    Width="600"
+    Title="Rule Configuration"
+    Width="620"
     Height="350"
+    MinWidth="600"
+    MinHeight="330"
     Icon="App.ico"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d">
     <Window.Resources>
         <SolidColorBrush x:Key="UnifiedBorderBrush" Color="#C0C0C0" />
         <SolidColorBrush x:Key="UnifiedTextBrush" Color="#222" />
+        <SolidColorBrush x:Key="AccentBrush" Color="#0078D7" />
+        <SolidColorBrush x:Key="LightBackgroundBrush" Color="#FAFAFA" />
+        
+        <!-- Compact Tab Control Style -->
         <Style TargetType="TabControl">
             <Setter Property="Background" Value="Transparent" />
             <Setter Property="BorderBrush" Value="{StaticResource UnifiedBorderBrush}" />
@@ -21,13 +27,16 @@
             <Setter Property="Padding" Value="0" />
             <Setter Property="Margin" Value="0" />
         </Style>
+        
+        <!-- Tab Item Style with increased width -->
         <Style TargetType="TabItem">
             <Setter Property="Background" Value="Transparent" />
             <Setter Property="BorderBrush" Value="{StaticResource UnifiedBorderBrush}" />
             <Setter Property="Foreground" Value="{StaticResource UnifiedTextBrush}" />
-            <Setter Property="Padding" Value="12,8" />
-            <Setter Property="Margin" Value="0,0,4,0" />
-            <Setter Property="FontSize" Value="12" />
+            <Setter Property="Padding" Value="10,4" />
+            <Setter Property="Margin" Value="0,0,1,0" />
+            <Setter Property="FontSize" Value="11" />
+            <Setter Property="FontWeight" Value="SemiBold" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="TabItem">
@@ -39,7 +48,7 @@
                                 Background="{TemplateBinding Background}"
                                 BorderBrush="{TemplateBinding BorderBrush}"
                                 BorderThickness="0,0,0,2"
-                                CornerRadius="0">
+                                CornerRadius="3,3,0,0">
                                 <ContentPresenter
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center"
@@ -48,23 +57,24 @@
                         </Grid>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsSelected" Value="True">
-                                <Setter TargetName="Border" Property="BorderBrush" Value="#0078D7" />
-                                <Setter Property="Foreground" Value="#0078D7" />
+                                <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource AccentBrush}" />
+                                <Setter TargetName="Border" Property="Background" Value="#F8F9FA" />
+                                <Setter Property="Foreground" Value="{StaticResource AccentBrush}" />
                             </Trigger>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="Border" Property="Background" Value="#F5F5F5" />
-                            </Trigger>
-                            <Trigger Property="IsEnabled" Value="False">
-                                <Setter Property="Opacity" Value="0.5" />
+                                <Setter TargetName="Border" Property="Background" Value="#F0F1F2" />
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
         </Style>
+        
+        <!-- Enhanced TextBox Style to completely prevent clipping -->
         <Style TargetType="TextBox">
-            <Setter Property="FontSize" Value="12" />
-            <Setter Property="Padding" Value="8,4" />
+            <Setter Property="FontSize" Value="11" />
+            <Setter Property="Padding" Value="8,7" />
+            <Setter Property="Height" Value="32" />
             <Setter Property="BorderThickness" Value="1" />
             <Setter Property="BorderBrush" Value="{StaticResource UnifiedBorderBrush}" />
             <Setter Property="Background" Value="#FFFFFF" />
@@ -79,23 +89,40 @@
                             Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}"
-                            CornerRadius="4">
+                            CornerRadius="3"
+                            Height="{TemplateBinding Height}">
                             <ScrollViewer
                                 x:Name="PART_ContentHost"
                                 Margin="{TemplateBinding Padding}"
-                                VerticalAlignment="Center" />
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Left"
+                                VerticalScrollBarVisibility="Hidden"
+                                HorizontalScrollBarVisibility="Hidden"
+                                CanContentScroll="False" />
                         </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter Property="BorderBrush" Value="{StaticResource AccentBrush}" />
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="BorderBrush" Value="#999999" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
         </Style>
+        
+        <!-- Compact Button Style -->
         <Style TargetType="Button">
-            <Setter Property="Background" Value="#F3F3F3" />
-            <Setter Property="Foreground" Value="{StaticResource UnifiedTextBrush}" />
-            <Setter Property="BorderThickness" Value="1" />
-            <Setter Property="BorderBrush" Value="{StaticResource UnifiedBorderBrush}" />
-            <Setter Property="Padding" Value="12,4" />
-            <Setter Property="Margin" Value="4" />
+            <Setter Property="Background" Value="{StaticResource AccentBrush}" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Padding" Value="12,5" />
+            <Setter Property="Margin" Value="3,2" />
+            <Setter Property="FontSize" Value="11" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Cursor" Value="Hand" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
@@ -103,7 +130,7 @@
                             Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}"
-                            CornerRadius="4">
+                            CornerRadius="3">
                             <ContentPresenter
                                 Margin="{TemplateBinding Padding}"
                                 HorizontalAlignment="Center"
@@ -113,17 +140,49 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        <Style TargetType="CheckBox">
-            <Setter Property="FontSize" Value="12" />
+        
+        <!-- Compact Secondary Button Style -->
+        <Style x:Key="SecondaryButton" TargetType="Button">
+            <Setter Property="Background" Value="#F3F3F3" />
             <Setter Property="Foreground" Value="{StaticResource UnifiedTextBrush}" />
-            <Setter Property="Padding" Value="4,2" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="BorderBrush" Value="{StaticResource UnifiedBorderBrush}" />
+            <Setter Property="Padding" Value="10,5" />
+            <Setter Property="Margin" Value="3,2" />
+            <Setter Property="FontSize" Value="11" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="3">
+                            <ContentPresenter
+                                Margin="{TemplateBinding Padding}"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        
+        <!-- Enhanced CheckBox Style with increased consistent spacing -->
+        <Style TargetType="CheckBox">
+            <Setter Property="FontSize" Value="11" />
+            <Setter Property="Foreground" Value="{StaticResource UnifiedTextBrush}" />
+            <Setter Property="Padding" Value="3,2" />
+            <Setter Property="Margin" Value="0,4" />
+            <Setter Property="VerticalAlignment" Value="Center" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="CheckBox">
                         <StackPanel Orientation="Horizontal">
                             <Border
-                                Width="18"
-                                Height="18"
+                                Width="13"
+                                Height="13"
                                 Margin="0,0,6,0"
                                 Background="White"
                                 BorderBrush="{StaticResource UnifiedBorderBrush}"
@@ -131,309 +190,232 @@
                                 CornerRadius="2">
                                 <Path
                                     x:Name="CheckMark"
-                                    Data="M 3 9 L 7 13 L 15 5"
-                                    Stroke="Black"
-                                    StrokeThickness="2"
+                                    Data="M 2 6 L 5 9 L 11 3"
+                                    Stroke="{StaticResource AccentBrush}"
+                                    StrokeThickness="1.5"
                                     Visibility="Collapsed" />
                             </Border>
-                            <ContentPresenter VerticalAlignment="Center" />
+                            <ContentPresenter VerticalAlignment="Center" Margin="{TemplateBinding Padding}" />
                         </StackPanel>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsChecked" Value="True">
                                 <Setter TargetName="CheckMark" Property="Visibility" Value="Visible" />
-                            </Trigger>
-                            <Trigger Property="IsEnabled" Value="False">
-                                <Setter Property="Opacity" Value="0.5" />
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
         </Style>
+        
+        <!-- Compact TextBlock Style -->
         <Style TargetType="TextBlock">
             <Setter Property="Foreground" Value="{StaticResource UnifiedTextBrush}" />
+            <Setter Property="FontSize" Value="11" />
+            <Setter Property="LineHeight" Value="13" />
+        </Style>
+        
+        <!-- Compact Section Header Style -->
+        <Style x:Key="SectionHeader" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Foreground" Value="{StaticResource UnifiedTextBrush}" />
+            <Setter Property="Margin" Value="0,0,0,5" />
+        </Style>
+        
+        <!-- Compact Field Label Style -->
+        <Style x:Key="FieldLabel" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="10" />
+            <Setter Property="Foreground" Value="#666666" />
+            <Setter Property="Margin" Value="0,0,0,3" />
         </Style>
     </Window.Resources>
 
-    <Grid Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}">
-        <TabControl Margin="5,5,5,40">
-            <TabItem Header="Insert">
-                <Grid Margin="5" Background="Transparent">
-                    <TextBlock
-                        Margin="5,5,0,0"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Top"
-                        Foreground="{StaticResource UnifiedTextBrush}"
-                        Text="Insert Text" />
-                    <CheckBox
-                        HorizontalAlignment="Right"
-                        VerticalAlignment="Top"
-                        Content="Enabled"
-                        Foreground="{StaticResource UnifiedTextBrush}"
-                        IsChecked="{Binding Path=Rule.Insert}"
-                        Tag="Insert_Enable" />
-                    <TextBox
-                        Height="23"
-                        Margin="5,25,5,0"
-                        VerticalAlignment="Top"
-                        VerticalContentAlignment="Center"
-                        KeyUp="TextBox_KeyUp"
-                        Tag="Insert_Enable"
-                        Text="{Binding Path=Rule.InsertText}" />
-                    <TextBlock
-                        Margin="5,58,5,0"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Top"
-                        Foreground="{StaticResource UnifiedTextBrush}"
-                        Text="Insert at" />
-                    <TextBox
-                        Width="36"
-                        Height="23"
-                        Margin="56,55,0,0"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Top"
-                        VerticalContentAlignment="Center"
-                        Text="{Binding Rule.InsertTextAt, FallbackValue=0}"
-                        TextAlignment="Center" />
-                </Grid>
-            </TabItem>
-            <TabItem Header="Replace">
-                <Grid Margin="5" Background="Transparent">
-                    <TextBlock
-                        Margin="5,5,0,0"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Top"
-                        Text="Replace Text" />
-                    <CheckBox
-                        HorizontalAlignment="Right"
-                        VerticalAlignment="Top"
-                        Content="Enabled"
-                        IsChecked="{Binding Path=Rule.Replace}"
-                        Tag="Replace_Enable" />
-                    <TextBox
-                        Height="23"
-                        Margin="5,25,5,0"
-                        VerticalAlignment="Top"
-                        VerticalContentAlignment="Center"
-                        KeyUp="TextBox_KeyUp"
-                        Tag="Replace_Enable"
-                        Text="{Binding Path=Rule.ReplaceText}" />
-                    <TextBlock
-                        Margin="5,58,5,0"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Top"
-                        Text="With" />
-                    <TextBox
-                        Height="23"
-                        Margin="5,76,5,0"
-                        VerticalAlignment="Top"
-                        VerticalContentAlignment="Center"
-                        Text="{Binding Path=Rule.ReplaceTextWith}" />
-                    <CheckBox
-                        Margin="5,110,5,0"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Top"
-                        Content="Use regular expression"
-                        IsChecked="{Binding Rule.ReplaceIsRegex}" />
-                </Grid>
-            </TabItem>
-            <TabItem Header="Remove">
-                <Grid Margin="5" Background="Transparent">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="1*" />
-                        <ColumnDefinition Width="1*" />
-                    </Grid.ColumnDefinitions>
-                    <TextBlock
-                        Margin="5,5,0,0"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Top"
-                        Text="Remove Text" />
-                    <CheckBox
-                        Grid.Column="1"
-                        HorizontalAlignment="Right"
-                        VerticalAlignment="Top"
-                        Content="Enabled"
-                        IsChecked="{Binding Path=Rule.Remove}"
-                        Tag="Remove_Enable" />
-                    <TextBlock
-                        Margin="5,33,0,0"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Top"
-                        Text="From" />
-                    <TextBox
-                        Height="23"
-                        Margin="42,30,5,0"
-                        VerticalAlignment="Top"
-                        VerticalContentAlignment="Center"
-                        KeyUp="TextBox_KeyUp"
-                        Tag="Remove_Enable"
-                        Text="{Binding Path=Rule.RemoveStartText}" />
-                    <CheckBox
-                        Margin="42,60,0,0"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Top"
-                        Content="Number"
-                        IsChecked="{Binding Rule.RemoveStartIsNumber}" />
-                    <TextBlock
-                        Grid.Column="1"
-                        Margin="15,33,0,0"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Top"
-                        Text="Until" />
-                    <TextBox
-                        Grid.Column="1"
-                        Height="23"
-                        Margin="45,30,5,0"
-                        VerticalAlignment="Top"
-                        VerticalContentAlignment="Center"
-                        Text="{Binding Path=Rule.RemoveEndText}" />
-                    <CheckBox
-                        Grid.Column="1"
-                        Margin="45,60,0,0"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Top"
-                        Content="Number"
-                        IsChecked="{Binding Rule.RemoveEndIsNumber}" />
-                </Grid>
-            </TabItem>
-            <TabItem Header="Text">
-                <Grid Margin="5" Background="Transparent">
-                    <TextBlock
-                        Margin="5,5,0,0"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Top"
-                        Text="Lines" />
-                    <CheckBox
-                        HorizontalAlignment="Right"
-                        VerticalAlignment="Top"
-                        Content="Enabled"
-                        IsChecked="{Binding Path=Rule.Text}"
-                        Tag="Text_Enable" />
-                    <TextBox
-                        Margin="5,25,5,5"
-                        AcceptsReturn="True"
-                        HorizontalScrollBarVisibility="Auto"
-                        KeyUp="TextBox_KeyUp"
-                        Tag="Text_Enable"
-                        Text="{Binding Path=Rule.LinesText}"
-                        TextWrapping="NoWrap"
-                        VerticalScrollBarVisibility="Auto" />
-                </Grid>
-            </TabItem>
-            <TabItem Header="Casing">
-                <StackPanel
-                    Margin="5,10"
-                    Background="Transparent"
-                    Orientation="Vertical">
-                    <CheckBox
-                        Margin="10"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Top"
-                        Content="Lowercase text"
-                        IsChecked="{Binding Path=Rule.CasingLowercase}" />
-                    <CheckBox
-                        Margin="10"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Top"
-                        Content="Uppercase text"
-                        IsChecked="{Binding Path=Rule.CasingUppercase}" />
-                    <CheckBox
-                        Margin="10"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Top"
-                        Content="Uppercase words"
-                        IsChecked="{Binding Path=Rule.CasingUppercaseWords}" />
-                    <CheckBox
-                        Margin="10"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Top"
-                        Content="Uppercase first word"
-                        IsChecked="{Binding Path=Rule.CasingUppercaseFirstWord}" />
-                </StackPanel>
-            </TabItem>
-            <TabItem Header="Misc">
-                <StackPanel
-                    Margin="5,10"
-                    Background="Transparent"
-                    Orientation="Vertical">
-                    <CheckBox
-                        Margin="10"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Top"
-                        Content="Trim whitespace"
-                        IsChecked="{Binding Path=Rule.TrimWhitespace}" />
-                    <CheckBox
-                        Margin="10"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Top"
-                        Content="Clean double spaces"
-                        IsChecked="{Binding Path=Rule.CleanDoubleSpaces}" />
-                    <StackPanel Orientation="Horizontal">
-                        <CheckBox
-                            Margin="10"
-                            HorizontalAlignment="Left"
-                            VerticalAlignment="Top"
-                            Content="Random numbers"
-                            IsChecked="{Binding Path=Rule.RandomNumbering}"
-                            Tag="RandomNumbering_Enable" />
-                        <TextBlock
-                            Margin="5,9"
-                            HorizontalAlignment="Left"
-                            VerticalAlignment="Top"
-                            Text="Insert" />
-                        <TextBox
-                            Width="42"
-                            Height="23"
-                            Margin="5,5"
-                            HorizontalAlignment="Left"
-                            VerticalAlignment="Top"
-                            VerticalContentAlignment="Center"
-                            KeyUp="TextBox_KeyUp"
-                            Tag="RandomNumbering_Enable"
-                            Text="{Binding Path=Rule.RandomNumbersCount}"
-                            TextAlignment="Center" />
-                        <TextBlock
-                            Margin="5,9"
-                            HorizontalAlignment="Left"
-                            VerticalAlignment="Top"
-                            Text="numbers at"
-                            TextWrapping="Wrap" />
-                        <TextBox
-                            Width="42"
-                            Height="23"
-                            Margin="5,5"
-                            HorizontalAlignment="Left"
-                            VerticalAlignment="Top"
-                            VerticalContentAlignment="Center"
-                            Text="{Binding Path=Rule.RandomNumbersAt}"
-                            TextAlignment="Center" />
+    <Grid Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" Margin="8">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        
+        <!-- Main Content Area -->
+        <TabControl Grid.Row="0" Margin="0,0,0,6">
+            <TabItem Header="Insert" Margin="0,0,5,0">
+                <Grid Margin="8">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    
+                    <!-- Header -->
+                    <Grid Grid.Row="0" Margin="0,0,0,6">
+                        <TextBlock Text="Insert Text" Style="{StaticResource SectionHeader}" HorizontalAlignment="Left" />
+                        <CheckBox Content="Enable" HorizontalAlignment="Right" VerticalAlignment="Center"
+                                  IsChecked="{Binding Path=Rule.Insert}" Tag="Insert_Enable" />
+                    </Grid>
+                    
+                    <!-- Text Input -->
+                    <StackPanel Grid.Row="1" Margin="0,0,0,6">
+                        <TextBlock Text="Text to insert:" Style="{StaticResource FieldLabel}" Margin="0,0,0,5" />
+                        <TextBox KeyUp="TextBox_KeyUp" Tag="Insert_Enable" 
+                                 Text="{Binding Path=Rule.InsertText}" />
                     </StackPanel>
-                    <CheckBox
-                        Margin="10"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Top"
-                        Content="Randomize filenames"
-                        IsChecked="{Binding Path=Rule.RandomizeFilenames}" />
-                </StackPanel>
+                    
+                    <!-- Position -->
+                    <StackPanel Grid.Row="2">
+                        <TextBlock Text="Position (empty = end):" Style="{StaticResource FieldLabel}" Margin="0,0,0,5" />
+                        <TextBox Width="70" HorizontalAlignment="Left" TextAlignment="Center"
+                                 Text="{Binding Rule.InsertTextAt, FallbackValue=0}" />
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+
+            <TabItem Header="Replace" Margin="0,0,5,0">
+                <Grid Margin="8">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    
+                    <!-- Header -->
+                    <Grid Grid.Row="0" Margin="0,0,0,6">
+                        <TextBlock Text="Replace Text" Style="{StaticResource SectionHeader}" HorizontalAlignment="Left" />
+                        <CheckBox Content="Enable" HorizontalAlignment="Right" VerticalAlignment="Center"
+                                  IsChecked="{Binding Path=Rule.Replace}" Tag="Replace_Enable" />
+                    </Grid>
+                    
+                    <!-- Find Text -->
+                    <StackPanel Grid.Row="1" Margin="0,0,0,6">
+                        <TextBlock Text="Find:" Style="{StaticResource FieldLabel}" Margin="0,0,0,5" />
+                        <TextBox KeyUp="TextBox_KeyUp" Tag="Replace_Enable" 
+                                 Text="{Binding Path=Rule.ReplaceText}" />
+                    </StackPanel>
+                    
+                    <!-- Replace With -->
+                    <StackPanel Grid.Row="2" Margin="0,0,0,6">
+                        <TextBlock Text="Replace with:" Style="{StaticResource FieldLabel}" Margin="0,0,0,5" />
+                        <TextBox Text="{Binding Path=Rule.ReplaceTextWith}" />
+                    </StackPanel>
+                    
+                    <!-- Options -->
+                    <CheckBox Grid.Row="3" Content="Use regular expressions"
+                              IsChecked="{Binding Rule.ReplaceIsRegex}" />
+                </Grid>
+            </TabItem>
+
+            <TabItem Header="Remove" Margin="0,0,5,0">
+                <Grid Margin="8">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    
+                    <!-- Header -->
+                    <Grid Grid.Row="0" Margin="0,0,0,6">
+                        <TextBlock Text="Remove Text" Style="{StaticResource SectionHeader}" HorizontalAlignment="Left" />
+                        <CheckBox Content="Enable" HorizontalAlignment="Right" VerticalAlignment="Center"
+                                  IsChecked="{Binding Path=Rule.Remove}" Tag="Remove_Enable" />
+                    </Grid>
+                    
+                    <!-- Remove Range -->
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="15" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <!-- From -->
+                        <StackPanel Grid.Column="0">
+                            <TextBlock Text="From:" Style="{StaticResource FieldLabel}" Margin="0,0,0,5" />
+                            <TextBox KeyUp="TextBox_KeyUp" Tag="Remove_Enable" 
+                                     Text="{Binding Path=Rule.RemoveStartText}" />
+                            <CheckBox Content="Is number/position" Margin="0,6,0,0"
+                                      IsChecked="{Binding Rule.RemoveStartIsNumber}" />
+                        </StackPanel>
+
+                        <!-- Until -->
+                        <StackPanel Grid.Column="2">
+                            <TextBlock Text="Until:" Style="{StaticResource FieldLabel}" Margin="0,0,0,5" />
+                            <TextBox Text="{Binding Path=Rule.RemoveEndText}" />
+                            <CheckBox Content="Is number/position" Margin="0,6,0,0"
+                                      IsChecked="{Binding Rule.RemoveEndIsNumber}" />
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+            </TabItem>
+
+            <TabItem Header="Casing" Margin="0,0,5,0">
+                <Grid Margin="8">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    
+                    <TextBlock Grid.Row="0" Text="Text Casing Options" Style="{StaticResource SectionHeader}" Margin="0,0,0,6" />
+                    <StackPanel Grid.Row="1">
+                        <CheckBox Content="Convert to lowercase"
+                                  IsChecked="{Binding Path=Rule.CasingLowercase}" />
+                        <CheckBox Content="Convert to UPPERCASE"
+                                  IsChecked="{Binding Path=Rule.CasingUppercase}" />
+                        <CheckBox Content="Capitalize Each Word"
+                                  IsChecked="{Binding Path=Rule.CasingUppercaseWords}" />
+                        <CheckBox Content="Capitalize first word only"
+                                  IsChecked="{Binding Path=Rule.CasingUppercaseFirstWord}" />
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+
+            <TabItem Header="Advanced" Margin="0,0,5,0">
+                <Grid Margin="8">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    
+                    <TextBlock Grid.Row="0" Text="Advanced Options" Style="{StaticResource SectionHeader}" Margin="0,0,0,6" />
+                    <StackPanel Grid.Row="1">
+                        <!-- Text Cleanup -->
+                        <CheckBox Content="Trim whitespace"
+                                  IsChecked="{Binding Path=Rule.TrimWhitespace}" />
+                        <CheckBox Content="Clean double spaces"
+                                  IsChecked="{Binding Path=Rule.CleanDoubleSpaces}" />
+                        
+                        <!-- Random Numbers -->
+                        <StackPanel Orientation="Horizontal" Margin="0,6,0,4">
+                            <CheckBox Content="Random numbers:" VerticalAlignment="Center" Margin="0,0,8,0"
+                                      IsChecked="{Binding Path=Rule.RandomNumbering}" Tag="RandomNumbering_Enable" />
+                            <TextBox Width="45" KeyUp="TextBox_KeyUp" Tag="RandomNumbering_Enable" 
+                                     Text="{Binding Path=Rule.RandomNumbersCount}" TextAlignment="Center" />
+                            <TextBlock Text="digits at:" VerticalAlignment="Center" Margin="8,0" />
+                            <TextBox Width="45" Text="{Binding Path=Rule.RandomNumbersAt}" 
+                                     TextAlignment="Center" />
+                        </StackPanel>
+                        
+                        <CheckBox Content="Randomize all filenames"
+                                  IsChecked="{Binding Path=Rule.RandomizeFilenames}" />
+                    </StackPanel>
+                </Grid>
             </TabItem>
         </TabControl>
-        <CheckBox
-            Margin="15,0,0,15"
-            Padding="4,4,4,4"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Bottom"
-            Content="Apply to Extension"
-            Foreground="{StaticResource UnifiedTextBrush}"
-            IsChecked="{Binding Path=Rule.Extension}" />
-        <Button
-            x:Name="BtnSave"
-            Width="80"
-            Margin="0,0,15,15"
-            Padding="10,5,10,6"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Bottom"
-            Click="BtnSave_Click"
-            Content="Save"
-            Foreground="{StaticResource UnifiedTextBrush}" />
+
+        <!-- Footer -->
+        <Border Grid.Row="1" 
+                BorderBrush="{StaticResource UnifiedBorderBrush}" BorderThickness="0,1,0,0"
+                Padding="10,8,10,6">
+            <Grid>
+                <CheckBox Content="Apply to file extension" VerticalAlignment="Center"
+                          HorizontalAlignment="Left" IsChecked="{Binding Path=Rule.Extension}" />
+                
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button Content="Cancel" Style="{StaticResource SecondaryButton}" 
+                            Click="BtnCancel_Click" />
+                    <Button Content="Save Rule" Click="BtnSave_Click" />
+                </StackPanel>
+            </Grid>
+        </Border>
     </Grid>
 </Window>

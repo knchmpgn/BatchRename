@@ -53,11 +53,6 @@ namespace BatchRename
                 );
             }
 
-            if (Rule.Text)
-            {
-                Rule.Description += String.Format("Replace filenames with rows from the given text. ");
-            }
-
             if (Rule.CasingLowercase)
             {
                 Rule.Description += String.Format("Convert casing to lowercase. ");
@@ -117,6 +112,12 @@ namespace BatchRename
             Close();
         }
 
+        private void BtnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            Save = false;
+            Close();
+        }
+
         private void TextBox_KeyUp(object sender, KeyEventArgs e)
         {
             TextBox tb = (TextBox)sender;
@@ -158,6 +159,11 @@ namespace BatchRename
         }
 
         private void CheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void CheckBox_Checked_1(object sender, RoutedEventArgs e)
         {
 
         }

@@ -241,18 +241,6 @@ namespace BatchRename
             try
             {
                 TextInfo ti = new CultureInfo("fi-Fi", false).TextInfo;
-                string[] lines = new string[0];
-
-                for (int r = 0; r < Rules.Count; r++)
-                {
-                    if (Rules[r].Text)
-                    {
-                        lines = Rules[r].LinesText.Split(
-                            new[] { "\r\n", "\r", "\n" },
-                            StringSplitOptions.None
-                        );
-                    }
-                }
 
                 for (int f = 0; f < Files.Count; f++)
                 {
@@ -364,14 +352,6 @@ namespace BatchRename
                                 }
 
                                 fullname = fullname.Remove(start, end - start);
-                            }
-                        }
-
-                        if (Rules[r].Text && lines.Length > 0)
-                        {
-                            if (f < lines.Length)
-                            {
-                                fullname = lines[f];
                             }
                         }
 
