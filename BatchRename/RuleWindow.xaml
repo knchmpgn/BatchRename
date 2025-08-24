@@ -1,0 +1,254 @@
+<Window
+    x:Class="BatchRename.RuleWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:BatchRename"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="Configure Rename Rule"
+    Width="544"
+    Height="416"
+    MinWidth="520"
+    MinHeight="384"
+    Icon="App.ico"
+    WindowStartupLocation="CenterScreen"
+    Style="{StaticResource ModernWindow}"
+    mc:Ignorable="d">
+    <Window.Resources>
+        <!-- Additional window-specific resources -->
+        <Style x:Key="SectionHeader" TargetType="TextBlock" BasedOn="{StaticResource BodyStrongTextStyle}">
+            <Setter Property="Margin" Value="0,0,0,12" />
+        </Style>
+        
+        <Style x:Key="CompactSectionHeader" TargetType="TextBlock" BasedOn="{StaticResource BodyStrongTextStyle}">
+            <Setter Property="Margin" Value="0,0,0,10" />
+        </Style>
+
+        <Style x:Key="UltraCompactSectionHeader" TargetType="TextBlock" BasedOn="{StaticResource BodyStrongTextStyle}">
+            <Setter Property="Margin" Value="0,0,0,6" />
+        </Style>
+
+        <Style x:Key="FieldGroup" TargetType="StackPanel">
+            <Setter Property="Margin" Value="0,0,0,16" />
+        </Style>
+        
+        <Style x:Key="CompactFieldGroup" TargetType="StackPanel">
+            <Setter Property="Margin" Value="0,0,0,12" />
+        </Style>
+        
+        <Style x:Key="UltraCompactFieldGroup" TargetType="StackPanel">
+            <Setter Property="Margin" Value="0,0,0,10" />
+        </Style>
+        
+        <Style x:Key="InlineCheckBox" TargetType="CheckBox">
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Margin" Value="0,0,0,0" />
+        </Style>
+    </Window.Resources>
+
+    <Grid Background="{StaticResource BackgroundPrimaryBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- Header -->
+
+        <!-- Main Content Area -->
+        <TabControl Grid.Row="1" Margin="16,8,16,8">
+            <TabItem Header="Insert">
+                <StackPanel Margin="16,16,16,12">
+                    <!-- Section Header with Toggle -->
+                    <Grid Margin="0,0,0,12">
+                        <TextBlock Text="Insert Text" Style="{StaticResource UltraCompactSectionHeader}" 
+                                   HorizontalAlignment="Left" VerticalAlignment="Center" />
+                        <CheckBox Content="Enable" HorizontalAlignment="Right" 
+                                  VerticalAlignment="Center"
+                                  IsChecked="{Binding Path=Rule.Insert}" Tag="Insert_Enable" />
+                    </Grid>
+
+                    <!-- Text Input -->
+                    <StackPanel Style="{StaticResource UltraCompactFieldGroup}">
+                        <TextBlock Text="Text to insert:" Style="{StaticResource FieldLabel}" />
+                        <TextBox KeyUp="TextBox_KeyUp" Tag="Insert_Enable" 
+                                 Text="{Binding Path=Rule.InsertText}" Height="25" Padding="3,3,3,3" />
+                    </StackPanel>
+
+                    <!-- Position Input -->
+                    <StackPanel Style="{StaticResource UltraCompactFieldGroup}">
+                        <TextBlock Text="Position (empty = end):" Style="{StaticResource FieldLabel}" />
+                        <TextBox Width="120" HorizontalAlignment="Left" TextAlignment="Center"
+                                 Text="{Binding Rule.InsertTextAt, FallbackValue=0}" Height="25" Padding="3,3,3,3" />
+                        <TextBlock Text="Use -1 for end of filename" 
+                                   Style="{StaticResource CaptionTextStyle}" Margin="0,4,0,0" />
+                    </StackPanel>
+                </StackPanel>
+            </TabItem>
+
+            <TabItem Header="Replace">
+                <StackPanel Margin="16,16,16,12">
+                    <!-- Section Header with Toggle -->
+                    <Grid Margin="0,0,0,12">
+                        <TextBlock Text="Replace Text" Style="{StaticResource UltraCompactSectionHeader}" 
+                                   HorizontalAlignment="Left" VerticalAlignment="Center" />
+                        <CheckBox Content="Enable" HorizontalAlignment="Right" 
+                                  VerticalAlignment="Center"
+                                  IsChecked="{Binding Path=Rule.Replace}" Tag="Replace_Enable" />
+                    </Grid>
+
+                    <!-- Find Text -->
+                    <StackPanel Style="{StaticResource UltraCompactFieldGroup}">
+                        <TextBlock Text="Find text:" Style="{StaticResource FieldLabel}" />
+                        <TextBox KeyUp="TextBox_KeyUp" Tag="Replace_Enable" 
+                                 Text="{Binding Path=Rule.ReplaceText}" Height="25" Padding="3,3,3,3" />
+                    </StackPanel>
+
+                    <!-- Replace With -->
+                    <StackPanel Style="{StaticResource UltraCompactFieldGroup}">
+                        <TextBlock Text="Replace with:" Style="{StaticResource FieldLabel}" />
+                        <TextBox Text="{Binding Path=Rule.ReplaceTextWith}" Height="25" Padding="3,3,3,3" />
+                        <TextBlock Text="Empty = remove found text" 
+                                   Style="{StaticResource CaptionTextStyle}" Margin="0,4,0,0" />
+                    </StackPanel>
+
+                    <!-- Options -->
+                    <StackPanel Style="{StaticResource UltraCompactFieldGroup}">
+                        <CheckBox Content="Use regular expressions" 
+                                  IsChecked="{Binding Rule.ReplaceIsRegex}" />
+                    </StackPanel>
+                </StackPanel>
+            </TabItem>
+
+            <TabItem Header="Remove">
+                <StackPanel Margin="16,16,16,12">
+                    <!-- Section Header with Toggle -->
+                    <Grid Margin="0,0,0,12">
+                        <TextBlock Text="Remove Range" Style="{StaticResource UltraCompactSectionHeader}" 
+                                   HorizontalAlignment="Left" VerticalAlignment="Center" />
+                        <CheckBox Content="Enable" HorizontalAlignment="Right" 
+                                  VerticalAlignment="Center"
+                                  IsChecked="{Binding Path=Rule.Remove}" Tag="Remove_Enable" />
+                    </Grid>
+
+                    <!-- Remove Range with better layout -->
+                    <Grid Margin="0,0,0,12">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="16" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <!-- From -->
+                        <StackPanel Grid.Column="0">
+                            <TextBlock Text="Remove from:" Style="{StaticResource FieldLabel}" />
+                            <TextBox KeyUp="TextBox_KeyUp" Tag="Remove_Enable" 
+                                     Text="{Binding Path=Rule.RemoveStartText}" 
+                                     Margin="0,0,0,8" Height="25" Padding="3,3,3,3" />
+                            <CheckBox Content="Is position number"
+                                      IsChecked="{Binding Rule.RemoveStartIsNumber}" />
+                        </StackPanel>
+
+                        <!-- Until -->
+                        <StackPanel Grid.Column="2">
+                            <TextBlock Text="Remove until:" Style="{StaticResource FieldLabel}" />
+                            <TextBox Text="{Binding Path=Rule.RemoveEndText}" 
+                                     Margin="0,0,0,8" Height="25" Padding="3,3,3,3" />
+                            <CheckBox Content="Is position number"
+                                      IsChecked="{Binding Rule.RemoveEndIsNumber}" />
+                        </StackPanel>
+                    </Grid>
+
+                    <!-- Help Text -->
+                    <TextBlock Text="Use text strings or positions. Position -1 = end." 
+                               Style="{StaticResource CaptionTextStyle}" />
+                </StackPanel>
+            </TabItem>
+
+            <TabItem Header="Casing">
+                <StackPanel Margin="16,16,16,12">
+                    <TextBlock Text="Text Case Transformations" Style="{StaticResource UltraCompactSectionHeader}" />
+                    
+                    <StackPanel Style="{StaticResource UltraCompactFieldGroup}">
+                        <CheckBox Content="Convert to lowercase" 
+                                  IsChecked="{Binding Path=Rule.CasingLowercase}" 
+                                  Margin="0,0,0,8" />
+                        <CheckBox Content="Convert to UPPERCASE" 
+                                  IsChecked="{Binding Path=Rule.CasingUppercase}" 
+                                  Margin="0,0,0,8" />
+                        <CheckBox Content="Capitalize Each Word" 
+                                  IsChecked="{Binding Path=Rule.CasingUppercaseWords}" 
+                                  Margin="0,0,0,8" />
+                        <CheckBox Content="Capitalize first word only" 
+                                  IsChecked="{Binding Path=Rule.CasingUppercaseFirstWord}" />
+                    </StackPanel>
+
+                    <TextBlock Text="Select only one option for best results." 
+                               Style="{StaticResource CaptionTextStyle}" />
+                </StackPanel>
+            </TabItem>
+
+            <TabItem Header="Advanced">
+                <StackPanel Margin="16,16,16,12">
+                    <TextBlock Text="Advanced Options" Style="{StaticResource UltraCompactSectionHeader}" />
+                    
+                    <!-- Text Cleanup -->
+                    <StackPanel Style="{StaticResource UltraCompactFieldGroup}">
+                        <TextBlock Text="Text Cleanup" Style="{StaticResource BodyStrongTextStyle}" 
+                                   Margin="0,0,0,6" />
+                        <CheckBox Content="Trim whitespace" 
+                                  IsChecked="{Binding Path=Rule.TrimWhitespace}" 
+                                  Margin="0,0,0,6" />
+                        <CheckBox Content="Clean double spaces" 
+                                  IsChecked="{Binding Path=Rule.CleanDoubleSpaces}" />
+                    </StackPanel>
+
+                    <!-- Random Numbers -->
+                    <StackPanel Style="{StaticResource UltraCompactFieldGroup}">
+                        <TextBlock Text="Random Numbers" Style="{StaticResource BodyStrongTextStyle}" 
+                                   Margin="0,0,0,6" />
+                        <Grid Margin="0,0,0,6">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="60" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="60" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <CheckBox Grid.Column="0" Content="Insert" VerticalAlignment="Center" 
+                                      Margin="0,0,8,0"
+                                      IsChecked="{Binding Path=Rule.RandomNumbering}" 
+                                      Tag="RandomNumbering_Enable" />
+                            <TextBox Grid.Column="1" KeyUp="TextBox_KeyUp" Tag="RandomNumbering_Enable" 
+                                     Text="{Binding Path=Rule.RandomNumbersCount}" TextAlignment="Center" 
+                                     Margin="0,0,8,0" />
+                            <TextBlock Grid.Column="2" Text="digits at:" VerticalAlignment="Center" 
+                                       Margin="0,0,8,0" />
+                            <TextBox Grid.Column="3" Text="{Binding Path=Rule.RandomNumbersAt}" 
+                                     TextAlignment="Center" />
+                        </Grid>
+                        <CheckBox Content="Randomize entire filename" 
+                                  IsChecked="{Binding Path=Rule.RandomizeFilenames}" />
+                    </StackPanel>
+                </StackPanel>
+            </TabItem>
+        </TabControl>
+
+        <!-- Footer with improved styling -->
+        <Border Grid.Row="2" Background="{StaticResource BackgroundSecondaryBrush}" 
+                BorderBrush="{StaticResource BorderPrimaryBrush}" BorderThickness="0,1,0,0"
+                Margin="-1,0,-1,-1" Padding="16,12">
+            <Grid>
+                <CheckBox Content="Apply rule to file extension" VerticalAlignment="Center"
+                          HorizontalAlignment="Left" IsChecked="{Binding Path=Rule.Extension}" />
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button Content="Cancel" Style="{StaticResource SecondaryButton}" 
+                            Click="BtnCancel_Click" Margin="0,0,12,0" MinWidth="80" />
+                    <Button Content="Save" Style="{StaticResource SecondaryButton}"
+                            Click="BtnSave_Click" MinWidth="80" />
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>
