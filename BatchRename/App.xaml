@@ -273,53 +273,126 @@
             </Setter>
         </Style>
 
-        <!-- CheckBox Style -->
+        <!-- CheckBox Style with Windows 11 Design -->
         <Style TargetType="CheckBox">
             <Setter Property="FontFamily" Value="Segoe UI" />
             <Setter Property="FontSize" Value="12" />
             <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}" />
-            <Setter Property="Padding" Value="6,0,0,0" />
+            <Setter Property="Padding" Value="8,0,0,0" />
             <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="HorizontalContentAlignment" Value="Left" />
+            <Setter Property="Cursor" Value="Hand" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="CheckBox">
-                        <StackPanel Orientation="Horizontal">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="18" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            
+                            <!-- Checkbox Container -->
                             <Border
                                 x:Name="checkBoxBorder"
-                                Width="16"
-                                Height="16"
+                                Grid.Column="0"
+                                Width="18"
+                                Height="18"
                                 Background="{StaticResource BackgroundPrimaryBrush}"
                                 BorderBrush="{StaticResource BorderSecondaryBrush}"
-                                BorderThickness="1"
-                                CornerRadius="3"
-                                SnapsToDevicePixels="True">
-                                <Grid>
+                                BorderThickness="1.5"
+                                CornerRadius="4"
+                                SnapsToDevicePixels="True"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center">
+                                
+                                <!-- Checkmark -->
+                                <Viewbox
+                                    x:Name="checkMarkViewbox"
+                                    Width="10"
+                                    Height="10"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Visibility="Collapsed">
                                     <Path
                                         x:Name="checkMark"
-                                        Data="M 3,8 L 6,11 L 13,4"
+                                        Data="M 2,5 L 5,8 L 10,2"
                                         Stroke="{StaticResource TextOnAccentBrush}"
-                                        StrokeThickness="2"
-                                        Visibility="Collapsed" />
-                                </Grid>
+                                        StrokeThickness="1.5" />
+                                </Viewbox>
                             </Border>
+                            
+                            <!-- Content -->
                             <ContentPresenter
+                                Grid.Column="1"
                                 Margin="{TemplateBinding Padding}"
-                                VerticalAlignment="Center"
-                                RecognizesAccessKey="True" />
-                        </StackPanel>
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                RecognizesAccessKey="True"
+                                SnapsToDevicePixels="True" />
+                        </Grid>
+                        
                         <ControlTemplate.Triggers>
+                            <!-- Checked State -->
                             <Trigger Property="IsChecked" Value="True">
                                 <Setter TargetName="checkBoxBorder" Property="Background" Value="{StaticResource SystemAccentBrush}" />
                                 <Setter TargetName="checkBoxBorder" Property="BorderBrush" Value="{StaticResource SystemAccentBrush}" />
-                                <Setter TargetName="checkMark" Property="Visibility" Value="Visible" />
+                                <Setter TargetName="checkMarkViewbox" Property="Visibility" Value="Visible" />
                             </Trigger>
+                            
+                            <!-- Indeterminate State -->
+                            <Trigger Property="IsChecked" Value="{x:Null}">
+                                <Setter TargetName="checkBoxBorder" Property="Background" Value="{StaticResource SystemAccentBrush}" />
+                                <Setter TargetName="checkBoxBorder" Property="BorderBrush" Value="{StaticResource SystemAccentBrush}" />
+                                <Setter TargetName="checkMark" Property="Data" Value="M 3,6 L 9,6" />
+                                <Setter TargetName="checkMarkViewbox" Property="Visibility" Value="Visible" />
+                            </Trigger>
+                            
+                            <!-- Mouse Over -->
                             <Trigger Property="IsMouseOver" Value="True">
                                 <Setter TargetName="checkBoxBorder" Property="BorderBrush" Value="{StaticResource BorderHoverBrush}" />
+                                <Setter TargetName="checkBoxBorder" Property="BorderThickness" Value="2" />
                             </Trigger>
+                            
+                            <!-- Mouse Over + Checked -->
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsMouseOver" Value="True" />
+                                    <Condition Property="IsChecked" Value="True" />
+                                </MultiTrigger.Conditions>
+                                <Setter TargetName="checkBoxBorder" Property="Background" Value="{StaticResource SystemAccentHoverBrush}" />
+                                <Setter TargetName="checkBoxBorder" Property="BorderBrush" Value="{StaticResource SystemAccentHoverBrush}" />
+                            </MultiTrigger>
+                            
+                            <!-- Pressed -->
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="checkBoxBorder" Property="Background" Value="{StaticResource PressedBrush}" />
+                                <Setter TargetName="checkBoxBorder" Property="BorderBrush" Value="{StaticResource BorderPressedBrush}" />
+                            </Trigger>
+                            
+                            <!-- Pressed + Checked -->
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsPressed" Value="True" />
+                                    <Condition Property="IsChecked" Value="True" />
+                                </MultiTrigger.Conditions>
+                                <Setter TargetName="checkBoxBorder" Property="Background" Value="{StaticResource SystemAccentPressedBrush}" />
+                                <Setter TargetName="checkBoxBorder" Property="BorderBrush" Value="{StaticResource SystemAccentPressedBrush}" />
+                            </MultiTrigger>
+                            
+                            <!-- Focused -->
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter TargetName="checkBoxBorder" Property="BorderBrush" Value="{StaticResource FocusBrush}" />
+                                <Setter TargetName="checkBoxBorder" Property="BorderThickness" Value="2" />
+                            </Trigger>
+                            
+                            <!-- Disabled -->
                             <Trigger Property="IsEnabled" Value="False">
                                 <Setter TargetName="checkBoxBorder" Property="Background" Value="{StaticResource BackgroundDisabledBrush}" />
                                 <Setter TargetName="checkBoxBorder" Property="BorderBrush" Value="{StaticResource BorderDisabledBrush}" />
                                 <Setter Property="Foreground" Value="{StaticResource TextDisabledBrush}" />
+                                <Setter TargetName="checkMark" Property="Stroke" Value="{StaticResource TextDisabledBrush}" />
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
