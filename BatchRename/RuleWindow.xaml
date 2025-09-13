@@ -167,7 +167,7 @@
 
             <TabItem Header="Casing">
                 <StackPanel Margin="16,16,16,12">
-                    <TextBlock Text="Text Case Transformations" Style="{StaticResource UltraCompactSectionHeader}" />
+                    <TextBlock Text="Textcase Transformations" Style="{StaticResource UltraCompactSectionHeader}" Margin="0,0,0,12" />
                     
                     <StackPanel Style="{StaticResource UltraCompactFieldGroup}">
                         <CheckBox Content="Convert to lowercase" 
@@ -183,31 +183,30 @@
                                   IsChecked="{Binding Path=Rule.CasingUppercaseFirstWord}" />
                     </StackPanel>
 
-                    <TextBlock Text="Select only one option for best results." 
-                               Style="{StaticResource CaptionTextStyle}" />
+                    <TextBlock Text="* select only one option for best results." 
+                               Style="{StaticResource CaptionTextStyle}" Margin="0,3,0,0" />
                 </StackPanel>
             </TabItem>
 
             <TabItem Header="Advanced">
                 <StackPanel Margin="16,16,16,12">
-                    <TextBlock Text="Advanced Options" Style="{StaticResource UltraCompactSectionHeader}" />
-                    
+
                     <!-- Text Cleanup -->
-                    <StackPanel Style="{StaticResource UltraCompactFieldGroup}">
-                        <TextBlock Text="Text Cleanup" Style="{StaticResource BodyStrongTextStyle}" 
-                                   Margin="0,0,0,6" />
+                    <StackPanel Style="{StaticResource UltraCompactFieldGroup}" Margin="0,0,0,12">
+                        <TextBlock Text="Cleanup" Style="{StaticResource BodyStrongTextStyle}" 
+                                   Margin="0,0,0,12" />
                         <CheckBox Content="Trim whitespace" 
                                   IsChecked="{Binding Path=Rule.TrimWhitespace}" 
-                                  Margin="0,0,0,6" />
+                                  Margin="0,0,0,15" />
                         <CheckBox Content="Clean double spaces" 
                                   IsChecked="{Binding Path=Rule.CleanDoubleSpaces}" />
                     </StackPanel>
 
                     <!-- Random Numbers -->
-                    <StackPanel Style="{StaticResource UltraCompactFieldGroup}">
-                        <TextBlock Text="Random Numbers" Style="{StaticResource BodyStrongTextStyle}" 
-                                   Margin="0,0,0,6" />
-                        <Grid Margin="0,0,0,6">
+                    <StackPanel Style="{StaticResource UltraCompactFieldGroup}" Margin="0,6,0,10">
+                        <TextBlock Text="Randomize" Style="{StaticResource BodyStrongTextStyle}" 
+                                   Margin="0,0,0,12" />
+                        <Grid Margin="0,0,0,8">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="60" />
@@ -215,19 +214,19 @@
                                 <ColumnDefinition Width="60" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <CheckBox Grid.Column="0" Content="Insert" VerticalAlignment="Center" 
+                            <CheckBox Grid.Column="0" Content="Insert digits" VerticalAlignment="Center" 
                                       Margin="0,0,8,0"
                                       IsChecked="{Binding Path=Rule.RandomNumbering}" 
-                                      Tag="RandomNumbering_Enable" />
+                                      Tag="RandomNumbering_Enable" Padding="8,0,4,0" Checked="CheckBox_Checked_2" />
                             <TextBox Grid.Column="1" KeyUp="TextBox_KeyUp" Tag="RandomNumbering_Enable" 
                                      Text="{Binding Path=Rule.RandomNumbersCount}" TextAlignment="Center" 
-                                     Margin="0,0,8,0" />
-                            <TextBlock Grid.Column="2" Text="digits at:" VerticalAlignment="Center" 
-                                       Margin="0,0,8,0" />
+                                     Margin="0,0,8,0" Padding="3,3,6,3" />
+                            <TextBlock Grid.Column="2" Text="@" VerticalAlignment="Center" 
+                                       Margin="0,0,8,0" Padding="8,0,4,0" />
                             <TextBox Grid.Column="3" Text="{Binding Path=Rule.RandomNumbersAt}" 
-                                     TextAlignment="Center" />
+                                     TextAlignment="Center" Padding="3,3,6,3" />
                         </Grid>
-                        <CheckBox Content="Randomize entire filename" 
+                        <CheckBox Content="Filename" 
                                   IsChecked="{Binding Path=Rule.RandomizeFilenames}" />
                     </StackPanel>
                 </StackPanel>

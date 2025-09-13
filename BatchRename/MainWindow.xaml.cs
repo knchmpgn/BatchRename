@@ -677,5 +677,10 @@ namespace BatchRename
         {
 
         }
+
+        private void DgFiles_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }

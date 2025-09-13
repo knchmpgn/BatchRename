@@ -167,5 +167,10 @@ namespace BatchRename
         {
 
         }
+
+        private void CheckBox_Checked_2(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

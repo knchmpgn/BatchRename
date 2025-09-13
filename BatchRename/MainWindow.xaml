@@ -14,8 +14,19 @@
     WindowStartupLocation="CenterScreen"
     Style="{StaticResource ModernWindow}"
     mc:Ignorable="d">
+
     <Window.Resources>
-        <!-- Additional window-specific resources -->
+        <!-- Font embedding for reliable icon display -->
+        <FontFamily x:Key="IconFont">
+            pack://application:,,,/fonts/#Segoe MDL2 Assets
+        </FontFamily>
+
+        <!-- Alternative: Use Material Design Icons if preferred -->
+        <!--
+        <FontFamily x:Key="IconFont">
+            pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/#Material Design Icons
+        </FontFamily>
+        -->
     </Window.Resources>
 
     <Grid Background="{StaticResource BackgroundPrimaryBrush}" Margin="20">
@@ -26,8 +37,6 @@
             <RowDefinition Height="*" MinHeight="280" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-
-        <!-- Application Header -->
 
         <!-- Rules Section -->
         <Grid Grid.Row="1">
@@ -43,7 +52,7 @@
             <!-- Rules Header -->
             <Grid Grid.Row="0" Grid.ColumnSpan="2" Margin="0,0,0,12">
                 <TextBlock Text="Rules" Style="{StaticResource SubheaderTextStyle}" 
-                           HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="16" />
+                           HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="16" FontWeight="Bold" Margin="5,0,0,0" />
                 <TextBlock Text="{Binding Rules.Count, StringFormat='{}{0} rules'}" 
                            Style="{StaticResource CaptionTextStyle}" 
                            HorizontalAlignment="Right" VerticalAlignment="Center" />
@@ -75,62 +84,80 @@
             </DataGrid>
 
             <!-- Rules Action Buttons -->
-            <StackPanel Grid.Row="1" Grid.Column="1" VerticalAlignment="Top" Margin="0,0,0,0">
-                <Button
-                    x:Name="BtnAddRule"
-                    Click="BtnAddRule_Click"
-                    Style="{StaticResource IconButton}"
-                    ToolTip="Add Rule"
-                    Margin="0,0,0,4"
-                    MinWidth="24" MinHeight="24">
-                    <TextBlock FontFamily="Segoe Fluent Icons" Text="&#xE710;" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}" />
+            <StackPanel Grid.Row="1" Grid.Column="1" VerticalAlignment="Top">
+                <Button x:Name="BtnAddRule"
+                        Click="BtnAddRule_Click"
+                        Style="{StaticResource IconButton}"
+                        ToolTip="Add Rule">
+                    <TextBlock Text="&#xE710;" 
+                               FontFamily="{StaticResource IconFont}"
+                               FontSize="14"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center"/>
                 </Button>
-                <Button
-                    x:Name="BtnRemoveRule"
-                    Click="BtnRemoveRule_Click"
-                    Style="{StaticResource IconButton}"
-                    Foreground="{StaticResource ErrorBrush}"
-                    ToolTip="Remove Rule"
-                    Margin="0,0,0,4"
-                    MinWidth="24" MinHeight="24">
-                    <TextBlock FontFamily="Segoe Fluent Icons" Text="&#xE711;" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}" />
+
+                <Button x:Name="BtnRemoveRule"
+                        Click="BtnRemoveRule_Click"
+                        Style="{StaticResource IconButton}"
+                        ToolTip="Remove Rule"
+                        Margin="0,6,0,0">
+                    <TextBlock Text="&#xE711;" 
+                               FontFamily="{StaticResource IconFont}"
+                               FontSize="14"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center"
+                               Foreground="{StaticResource ErrorBrush}"/>
                 </Button>
-                <Rectangle Height="1" Fill="{StaticResource BorderPrimaryBrush}" Margin="4,2,4,8" />
-                <Button
-                    x:Name="BtnUp"
-                    Click="BtnUp_Click"
-                    Style="{StaticResource IconButton}"
-                    ToolTip="Move Rule Up"
-                    Margin="0,0,0,4"
-                    MinWidth="24" MinHeight="24">
-                    <TextBlock FontFamily="Segoe Fluent Icons" Text="&#xE70E;" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}" />
+
+                <Rectangle Height="1" Fill="{StaticResource BorderPrimaryBrush}" Margin="4,12,4,12" />
+
+                <Button x:Name="BtnUp"
+                        Click="BtnUp_Click"
+                        Style="{StaticResource IconButton}"
+                        ToolTip="Move Rule Up"
+                        Margin="0,0,0,6">
+                    <TextBlock Text="&#xE70E;" 
+                               FontFamily="{StaticResource IconFont}"
+                               FontSize="14"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center"/>
                 </Button>
-                <Button
-                    x:Name="BtnDown"
-                    Click="BtnDown_Click"
-                    Style="{StaticResource IconButton}"
-                    ToolTip="Move Rule Down"
-                    Margin="0,0,0,4"
-                    MinWidth="24" MinHeight="24">
-                    <TextBlock FontFamily="Segoe Fluent Icons" Text="&#xE70D;" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}" />
+
+                <Button x:Name="BtnDown"
+                        Click="BtnDown_Click"
+                        Style="{StaticResource IconButton}"
+                        ToolTip="Move Rule Down"
+                        Margin="0,0,0,6">
+                    <TextBlock Text="&#xE70D;" 
+                               FontFamily="{StaticResource IconFont}"
+                               FontSize="14"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center"/>
                 </Button>
-                <Rectangle Height="1" Fill="{StaticResource BorderPrimaryBrush}" Margin="4,2,4,8" />
-                <Button
-                    x:Name="BtnAddRuleFromFile"
-                    Click="BtnAddRuleFromFile_Click"
-                    Style="{StaticResource IconButton}"
-                    ToolTip="Import Rules from File"
-                    Margin="0,0,0,4"
-                    MinWidth="24" MinHeight="24">
-                    <TextBlock FontFamily="Segoe Fluent Icons" Text="&#xE8F4;" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}" />
+
+                <Rectangle Height="1" Fill="{StaticResource BorderPrimaryBrush}" Margin="4,12,4,12" />
+
+                <Button x:Name="BtnAddRuleFromFile"
+                        Click="BtnAddRuleFromFile_Click"
+                        Style="{StaticResource IconButton}"
+                        ToolTip="Import Rules from File"
+                        Margin="0,0,0,6">
+                    <TextBlock Text="&#xE8F4;" 
+                               FontFamily="{StaticResource IconFont}"
+                               FontSize="14"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center"/>
                 </Button>
-                <Button
-                    x:Name="BtnSaveRuleToFile"
-                    Click="BtnSaveRuleToFile_Click"
-                    Style="{StaticResource IconButton}"
-                    ToolTip="Export Rules to File"
-                    MinWidth="24" MinHeight="24">
-                    <TextBlock FontFamily="Segoe Fluent Icons" Text="&#xE74E;" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}" />
+
+                <Button x:Name="BtnSaveRuleToFile"
+                        Click="BtnSaveRuleToFile_Click"
+                        Style="{StaticResource IconButton}"
+                        ToolTip="Export Rules to File">
+                    <TextBlock Text="&#xE74E;" 
+                               FontFamily="{StaticResource IconFont}"
+                               FontSize="14"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center"/>
                 </Button>
             </StackPanel>
         </Grid>
@@ -152,7 +179,7 @@
             <!-- Files Header -->
             <Grid Grid.Row="0" Grid.ColumnSpan="2" Margin="0,0,0,12">
                 <TextBlock Text="Files" Style="{StaticResource SubheaderTextStyle}" 
-                           HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="16" />
+                           HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="16" FontWeight="Bold" Margin="5,0,0,0" />
                 <TextBlock Text="{Binding Files.Count, StringFormat='{}{0} files'}" 
                            Style="{StaticResource CaptionTextStyle}" 
                            HorizontalAlignment="Right" VerticalAlignment="Center" />
@@ -190,43 +217,55 @@
             </DataGrid>
 
             <!-- Files Action Buttons -->
-            <StackPanel Grid.Row="1" Grid.Column="1" VerticalAlignment="Top" Margin="0,0,0,0">
-                <Button
-                    x:Name="BtnAddFiles"
-                    Click="BtnAddFiles_Click"
-                    Style="{StaticResource IconButton}"
-                    ToolTip="Add Files"
-                    Margin="0,0,0,4"
-                    MinWidth="24" MinHeight="24">
-                    <TextBlock FontFamily="Segoe Fluent Icons" Text="&#xE710;" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}" />
+            <StackPanel Grid.Row="1" Grid.Column="1" VerticalAlignment="Top">
+                <Button x:Name="BtnAddFiles"
+                        Click="BtnAddFiles_Click"
+                        Style="{StaticResource IconButton}"
+                        ToolTip="Add Files"
+                        Margin="0,0,0,6">
+                    <TextBlock Text="&#xE710;" 
+                               FontFamily="{StaticResource IconFont}"
+                               FontSize="14"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center"/>
                 </Button>
-                <Button
-                    x:Name="BtnRemoveFile"
-                    Click="BtnRemoveFile_Click"
-                    Style="{StaticResource IconButton}"
-                    Foreground="{StaticResource ErrorBrush}"
-                    ToolTip="Remove File"
-                    Margin="0,0,0,4"
-                    MinWidth="24" MinHeight="24">
-                    <TextBlock FontFamily="Segoe Fluent Icons" Text="&#xE711;" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}" />
+
+                <Button x:Name="BtnRemoveFile"
+                        Click="BtnRemoveFile_Click"
+                        Style="{StaticResource IconButton}"
+                        ToolTip="Remove File"
+                        Margin="0,0,0,6">
+                    <TextBlock Text="&#xE711;" 
+                               FontFamily="{StaticResource IconFont}"
+                               FontSize="14"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center"
+                               Foreground="{StaticResource ErrorBrush}"/>
                 </Button>
-                <Rectangle Height="1" Fill="{StaticResource BorderPrimaryBrush}" Margin="4,2,4,8" />
-                <Button
-                    x:Name="BtnSortUp"
-                    Click="BtnSortUp_Click"
-                    Style="{StaticResource IconButton}"
-                    ToolTip="Sort Files A-Z"
-                    Margin="0,0,0,4"
-                    MinWidth="24" MinHeight="24">
-                    <TextBlock FontFamily="Segoe Fluent Icons" Text="&#xE70E;" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}" />
+
+                <Rectangle Height="1" Fill="{StaticResource BorderPrimaryBrush}" Margin="4,12,4,12" />
+
+                <Button x:Name="BtnSortUp"
+                        Click="BtnSortUp_Click"
+                        Style="{StaticResource IconButton}"
+                        ToolTip="Sort Files A-Z"
+                        Margin="0,0,0,6">
+                    <TextBlock Text="&#xE70E;" 
+                               FontFamily="{StaticResource IconFont}"
+                               FontSize="14"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center"/>
                 </Button>
-                <Button
-                    x:Name="BtnSortDown"
-                    Click="BtnSortDown_Click"
-                    Style="{StaticResource IconButton}"
-                    ToolTip="Sort Files Z-A"
-                    MinWidth="24" MinHeight="24">
-                    <TextBlock FontFamily="Segoe Fluent Icons" Text="&#xE70D;" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}" />
+
+                <Button x:Name="BtnSortDown"
+                        Click="BtnSortDown_Click"
+                        Style="{StaticResource IconButton}"
+                        ToolTip="Sort Files Z-A">
+                    <TextBlock Text="&#xE70D;" 
+                               FontFamily="{StaticResource IconFont}"
+                               FontSize="14"
+                               VerticalAlignment="Center"
+                               HorizontalAlignment="Center"/>
                 </Button>
             </StackPanel>
         </Grid>
@@ -234,7 +273,7 @@
         <!-- Bottom Action Bar -->
         <Border Grid.Row="4" Background="{StaticResource BackgroundSecondaryBrush}"
                 BorderBrush="{StaticResource BorderPrimaryBrush}" BorderThickness="0,1,0,0"
-                Margin="-20,16,-20,-20" Padding="20,16,20,20">
+                Margin="-20,20,-20,-20" Padding="20,20,20,20">
             <Grid>
                 <!-- Left side buttons -->
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
