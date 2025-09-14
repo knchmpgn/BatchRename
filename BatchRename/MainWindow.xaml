@@ -88,7 +88,7 @@
                 <Button x:Name="BtnAddRule"
                         Click="BtnAddRule_Click"
                         Style="{StaticResource IconButton}"
-                        ToolTip="Add Rule">
+                        ToolTip="Add Rule" Margin="0,0,0,6">
                     <TextBlock Text="&#xE710;" 
                                FontFamily="{StaticResource IconFont}"
                                FontSize="14"
@@ -99,8 +99,7 @@
                 <Button x:Name="BtnRemoveRule"
                         Click="BtnRemoveRule_Click"
                         Style="{StaticResource IconButton}"
-                        ToolTip="Remove Rule"
-                        Margin="0,6,0,0">
+                        ToolTip="Remove Rule">
                     <TextBlock Text="&#xE711;" 
                                FontFamily="{StaticResource IconFont}"
                                FontSize="14"
@@ -109,7 +108,7 @@
                                Foreground="{StaticResource ErrorBrush}"/>
                 </Button>
 
-                <Rectangle Height="1" Fill="{StaticResource BorderPrimaryBrush}" Margin="4,12,4,12" />
+                <Rectangle Height="1" Fill="{StaticResource BorderPrimaryBrush}" Margin="4,10,4,10" />
 
                 <Button x:Name="BtnUp"
                         Click="BtnUp_Click"
@@ -126,8 +125,7 @@
                 <Button x:Name="BtnDown"
                         Click="BtnDown_Click"
                         Style="{StaticResource IconButton}"
-                        ToolTip="Move Rule Down"
-                        Margin="0,0,0,6">
+                        ToolTip="Move Rule Down">
                     <TextBlock Text="&#xE70D;" 
                                FontFamily="{StaticResource IconFont}"
                                FontSize="14"
@@ -135,7 +133,7 @@
                                HorizontalAlignment="Center"/>
                 </Button>
 
-                <Rectangle Height="1" Fill="{StaticResource BorderPrimaryBrush}" Margin="4,12,4,12" />
+                <Rectangle Height="1" Fill="{StaticResource BorderPrimaryBrush}" Margin="4,10,4,10" />
 
                 <Button x:Name="BtnAddRuleFromFile"
                         Click="BtnAddRuleFromFile_Click"
@@ -221,8 +219,7 @@
                 <Button x:Name="BtnAddFiles"
                         Click="BtnAddFiles_Click"
                         Style="{StaticResource IconButton}"
-                        ToolTip="Add Files"
-                        Margin="0,0,0,6">
+                        ToolTip="Add Files" Margin="0,0,0,6">
                     <TextBlock Text="&#xE710;" 
                                FontFamily="{StaticResource IconFont}"
                                FontSize="14"
@@ -233,8 +230,7 @@
                 <Button x:Name="BtnRemoveFile"
                         Click="BtnRemoveFile_Click"
                         Style="{StaticResource IconButton}"
-                        ToolTip="Remove File"
-                        Margin="0,0,0,6">
+                        ToolTip="Remove File">
                     <TextBlock Text="&#xE711;" 
                                FontFamily="{StaticResource IconFont}"
                                FontSize="14"
@@ -243,7 +239,7 @@
                                Foreground="{StaticResource ErrorBrush}"/>
                 </Button>
 
-                <Rectangle Height="1" Fill="{StaticResource BorderPrimaryBrush}" Margin="4,12,4,12" />
+                <Rectangle Height="1" Fill="{StaticResource BorderPrimaryBrush}" Margin="4,10,4,10" />
 
                 <Button x:Name="BtnSortUp"
                         Click="BtnSortUp_Click"
