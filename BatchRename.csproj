@@ -9,7 +9,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <ApplicationManifest>app.manifest</ApplicationManifest>
-    <ApplicationIcon>Assets\App.ico</ApplicationIcon>
+    <ApplicationIcon>App.ico</ApplicationIcon>
     <Platforms>x64</Platforms>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <UsePreviewSDK>false</UsePreviewSDK>
@@ -29,7 +29,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Assets\App.ico" />
+    <Resource Include="App.ico" />
   </ItemGroup>
 
 </Project>

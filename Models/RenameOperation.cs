@@ -176,17 +176,4 @@ public partial class RenameOperation : ObservableObject
         _ => DisplayTitle,
     };
 
-    public string TypeGlyph => Type switch
-    {
-        OperationType.FindReplace     => "\uE721",
-        OperationType.InsertText      => "\uE8AA",
-        OperationType.RemoveRange     => "\uE74D",
-        OperationType.AddSequence     => "\uE8EF",
-        OperationType.ChangeCase      => "\uE8D2",
-        OperationType.TrimSpaces      => "\uE73A",
-        OperationType.ChangeExtension => "\uE8A5",
-        OperationType.RemoveNumbers   => "\uE8CB",
-        OperationType.ReplaceSpaces   => "\uE75A",
-        _                             => "\uE8A5",
-    };
 }

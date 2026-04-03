@@ -6,7 +6,7 @@
         xmlns:conv="clr-namespace:BatchRename.Converters"
         xmlns:models="clr-namespace:BatchRename.Models"
         Title="Batch Rename"
-        Icon="pack://application:,,,/Assets/App.ico"
+        Icon="pack://application:,,,/App.ico"
         Width="700"
         Height="600"
         MinWidth="700"
@@ -213,7 +213,7 @@
                              ShowMinimize="True"
                              ShowMaximize="True">
                         <ui:TitleBar.Icon>
-                                <ui:ImageIcon Source="pack://application:,,,/Assets/App.ico"/>
+                                <ui:ImageIcon Source="pack://application:,,,/App.ico"/>
                         </ui:TitleBar.Icon>
                 </ui:TitleBar>
 
@@ -427,12 +427,6 @@
                                                                                                             Orientation="Horizontal"
                                                                                                             VerticalAlignment="Center"
                                                                                                             Margin="4,0">
-                                                                                                        <TextBlock Text="{Binding TypeGlyph}"
-                                                                                                                   FontFamily="Segoe Fluent Icons"
-                                                                                                                   FontSize="14"
-                                                                                                                   Foreground="{StaticResource BrushAccentPrimary}"
-                                                                                                                   Margin="0,0,8,0"
-                                                                                                                   VerticalAlignment="Center"/>
                                                                                                         <TextBlock Text="{Binding DisplayTitle}"
                                                                                                                    FontSize="12"
                                                                                                                    FontWeight="Medium"
