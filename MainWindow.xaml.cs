@@ -1,5 +1,6 @@
 using System.Windows;
 using System.Windows.Controls;
+using System.IO;
 using BatchRename.ViewModels;
 using BatchRename.Services;
 
@@ -15,7 +16,7 @@ public partial class MainWindow
     private readonly MainViewModel _vm;
     private readonly AppSettings _settings;
 
-    public MainWindow()
+    public MainWindow(IEnumerable<string>? startupPaths = null)
     {
         InitializeComponent();
 
@@ -48,6 +49,8 @@ public partial class MainWindow
         // Restore maximized state
         if (_settings.IsMaximized)
             WindowState = WindowState.Maximized;
+
+        LoadStartupPaths(startupPaths);
     }
 
     /// <summary>
@@ -131,5 +134,33 @@ public partial class MainWindow
     private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
 
+    }
+
+    private void LoadStartupPaths(IEnumerable<string>? startupPaths)
+    {
+        if (startupPaths == null)
+            return;
+
+        var paths = startupPaths
+            .Where(path => !string.IsNullOrWhiteSpace(path))
+            .Select(NormalizePath)
+            .OfType<string>()
+            .Distinct(StringComparer.OrdinalIgnoreCase)
+            .ToArray();
+
+        if (paths.Length > 0)
+            _vm.HandleDrop(paths);
+    }
+
+    private static string? NormalizePath(string path)
+    {
+        try
+        {
+            return Path.GetFullPath(path);
+        }
+        catch
+        {
+            return null;
+        }
     }
 }

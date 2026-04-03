@@ -16,6 +16,10 @@ public partial class App : Application
 
         // Watch for Windows theme changes (light/dark toggle in Settings)
         SystemEvents.UserPreferenceChanged += OnUserPreferenceChanged;
+
+        var window = new MainWindow(e.Args);
+        MainWindow = window;
+        window.Show();
     }
 
     protected override void OnExit(ExitEventArgs e)
